@@ -7,8 +7,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #597492; /* 柔和灰色 */
-      color: #ffffff; /* 文字顏色，避免對比過高 */
+      background-color: #597492; 
+      color: #ffffff; 
     }
     h2 {
       /*text-align: center; */
@@ -29,16 +29,16 @@
       padding: 10px;
     }
     .top-name { 
-      border: none;      /* 移除 div 的邊框 */
-      padding: 10px;     /* 設置 div 的內部間距 */
-      font-size: 14px;   /* 設置字體大小 */
-      display: inline-block;  /* 使 div 顯示為區塊元素，可以根據需要調整為 block 或 inline */
+      border: none;      
+      padding: 10px;   
+      font-size: 14px;   
+      display: inline-block;  
     }
     #name-table td {
-      padding: 10px; /* 設置單元格內部的間距 */
-      border: none; /* 設置單元格的邊框 */
-      font-size: 14px; /* 設置字體大小，根據需要調整 */
-      text-align: left; /* 設置文字對齊方式為左 */
+      padding: 10px; 
+      border: none; 
+      font-size: 14px; 
+      text-align: left; 
     }
     .top-right {
       flex: 1;
@@ -90,8 +90,8 @@
     }
 
     #moreContent {
-    display: none; /* 預設隱藏 */
-    max-height: none; /* 內容高度自適應 */
+    display: none; 
+    max-height: none; 
     }
 
   </style>
@@ -156,7 +156,6 @@
   <a href="https://docs.google.com/spreadsheets/d/1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A/edit?usp=sharing" target="_blank">點擊這裡查看 Google 試算表</a>
 
 
-  <!-- 按鈕區 -->
   <!-- <button class="btn" onclick="fetchData()">顯示數據</button> -->
   <button class="btn" id="showbtn" onclick="showingbtn()">顯示數據</button>
   <button id="schedulebtn" class="btn hidden" onclick="scheduling()">重新安排人員</button>
@@ -242,11 +241,11 @@ function toggleContent() {
     const button = document.getElementById("morebtn");
 
     if (moreContent.style.display === "none" || moreContent.style.display === "") {
-        moreContent.style.display = "block"; // 顯示內容
-        document.body.style.overflow = "auto"; // 確保頁面可以滾動
+        moreContent.style.display = "block"; 
+        document.body.style.overflow = "auto"; 
         button.textContent = "顯示更少";
     } else {
-        moreContent.style.display = "none"; // 隱藏內容
+        moreContent.style.display = "none"; 
         button.textContent = "顯示更多";
     }
 }
@@ -320,9 +319,9 @@ async function showing() {
   name1.style.display = "block";
 
 
-    const sheetId = "1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A"; // 你的試算表 ID
-    const apiKey = "AIzaSyCaPHKS9sBRNf0805GkgeMRgysyQPPuK0k"; // 你的 API 金鑰
-    const range = "A1:E14"; // 你需要的範圍
+    const sheetId = "1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A"; 
+    const apiKey = "AIzaSyCaPHKS9sBRNf0805GkgeMRgysyQPPuK0k"; 
+    const range = "A1:E14"; 
 
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
 
@@ -337,7 +336,7 @@ async function showing() {
 
         const values = data.values;
 
-        // 取得 HTML 表格元素
+        
         const leftTable = document.querySelector(".top-left table tbody");
         const rightTable1 = document.querySelector(".top-right #right-table1 tbody");
         const rightTable2 = document.querySelector(".top-right #right-table2 tbody");
@@ -374,86 +373,7 @@ async function showing() {
     }
     
     
-}/*
-async function showing() {
-  var name = document.getElementById("name");
-  name.style.display = "block";
-  var name1 = document.getElementById("name1");
-  name1.style.display = "block";
-
-    const sheetId = "1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A"; // 你的試算表 ID
-    const apiKey = "AIzaSyCaPHKS9sBRNf0805GkgeMRgysyQPPuK0k"; // 你的 API 金鑰
-    const range = "A1:E14"; // 你需要的範圍
-
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
-
-    // 先檢查是否已經有儲存的資料
-    const savedData = localStorage.getItem("tableData");
-    if (savedData) {
-        // 如果有儲存的資料，直接填入表格
-        const values = JSON.parse(savedData);
-        fillTables(values);
-        return;
-    }
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (!data.values) {
-            console.error("無法取得數據");
-            return;
-        }
-
-        const values = data.values;
-
-        // 儲存到 localStorage
-        localStorage.setItem("tableData", JSON.stringify(values));
-
-        // 填入表格
-        fillTables(values);
-
-    } catch (error) {
-        console.error("獲取試算表數據時發生錯誤：", error);
-    }
-
 }
-
-// 將資料填入表格的函式
-function fillTables(values) {
-    // 取得 HTML 表格元素
-    const leftTable = document.querySelector(".top-left table tbody");
-    const rightTable1 = document.querySelector(".top-right #right-table1 tbody");
-    const rightTable2 = document.querySelector(".top-right #right-table2 tbody");
-    const bottomLeftTable = document.querySelector(".bottom #left-table tbody");
-    const bottomRightTable1 = document.querySelector(".bottom #right-table1 tbody");
-    const bottomRightTable2 = document.querySelector(".bottom #right-table2 tbody");
-
-    // 填入 左上表格 (A1~A5, B1~B5)
-    for (let i = 0; i < 5; i++) {
-        leftTable.rows[i].cells[0].textContent = values[i]?.[0] || "";
-        leftTable.rows[i].cells[1].textContent = values[i]?.[1] || "";
-    }
-
-    // 填入 右上表格 (D1~D2, E1~E2)
-    for (let i = 0; i < 2; i++) {
-        rightTable1.rows[i].cells[0].textContent = values[i]?.[3] || "";
-        rightTable2.rows[i].cells[0].textContent = values[i]?.[4] || "";
-    }
-
-    // 填入 左下表格 (A10~A14, B10~B14)
-    for (let i = 9; i < 14; i++) {
-        bottomLeftTable.rows[i - 9].cells[0].textContent = values[i]?.[0] || "";
-        bottomLeftTable.rows[i - 9].cells[1].textContent = values[i]?.[1] || "";
-    }
-
-    // 填入 右下表格 (D10~D11, E10~E11)
-    for (let i = 9; i < 11; i++) {
-        bottomRightTable1.rows[i - 9].cells[0].textContent = values[i]?.[3] || "";
-        bottomRightTable2.rows[i - 9].cells[0].textContent = values[i]?.[4] || "";
-    }
-}
-*/
 
 
 </script>
