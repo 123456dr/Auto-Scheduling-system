@@ -216,6 +216,20 @@
           </div>
         </div>
     </div>
+
+    <br><br>
+    <p>我是廣告(不要點我)</p>
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '06cb36d680391c873b7c96a3f5ba0f8a',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/06cb36d680391c873b7c96a3f5ba0f8a/invoke.js"></script>
+    
   </div>
 </div>
 
@@ -360,10 +374,90 @@ async function showing() {
     }
     
     
+}/*
+async function showing() {
+  var name = document.getElementById("name");
+  name.style.display = "block";
+  var name1 = document.getElementById("name1");
+  name1.style.display = "block";
+
+    const sheetId = "1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A"; // 你的試算表 ID
+    const apiKey = "AIzaSyCaPHKS9sBRNf0805GkgeMRgysyQPPuK0k"; // 你的 API 金鑰
+    const range = "A1:E14"; // 你需要的範圍
+
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    // 先檢查是否已經有儲存的資料
+    const savedData = localStorage.getItem("tableData");
+    if (savedData) {
+        // 如果有儲存的資料，直接填入表格
+        const values = JSON.parse(savedData);
+        fillTables(values);
+        return;
+    }
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.values) {
+            console.error("無法取得數據");
+            return;
+        }
+
+        const values = data.values;
+
+        // 儲存到 localStorage
+        localStorage.setItem("tableData", JSON.stringify(values));
+
+        // 填入表格
+        fillTables(values);
+
+    } catch (error) {
+        console.error("獲取試算表數據時發生錯誤：", error);
+    }
+
 }
+
+// 將資料填入表格的函式
+function fillTables(values) {
+    // 取得 HTML 表格元素
+    const leftTable = document.querySelector(".top-left table tbody");
+    const rightTable1 = document.querySelector(".top-right #right-table1 tbody");
+    const rightTable2 = document.querySelector(".top-right #right-table2 tbody");
+    const bottomLeftTable = document.querySelector(".bottom #left-table tbody");
+    const bottomRightTable1 = document.querySelector(".bottom #right-table1 tbody");
+    const bottomRightTable2 = document.querySelector(".bottom #right-table2 tbody");
+
+    // 填入 左上表格 (A1~A5, B1~B5)
+    for (let i = 0; i < 5; i++) {
+        leftTable.rows[i].cells[0].textContent = values[i]?.[0] || "";
+        leftTable.rows[i].cells[1].textContent = values[i]?.[1] || "";
+    }
+
+    // 填入 右上表格 (D1~D2, E1~E2)
+    for (let i = 0; i < 2; i++) {
+        rightTable1.rows[i].cells[0].textContent = values[i]?.[3] || "";
+        rightTable2.rows[i].cells[0].textContent = values[i]?.[4] || "";
+    }
+
+    // 填入 左下表格 (A10~A14, B10~B14)
+    for (let i = 9; i < 14; i++) {
+        bottomLeftTable.rows[i - 9].cells[0].textContent = values[i]?.[0] || "";
+        bottomLeftTable.rows[i - 9].cells[1].textContent = values[i]?.[1] || "";
+    }
+
+    // 填入 右下表格 (D10~D11, E10~E11)
+    for (let i = 9; i < 11; i++) {
+        bottomRightTable1.rows[i - 9].cells[0].textContent = values[i]?.[3] || "";
+        bottomRightTable2.rows[i - 9].cells[0].textContent = values[i]?.[4] || "";
+    }
+}
+*/
 
 
 </script>
+<!--<script type='text/javascript' src='//pl25782514.effectiveratecpm.com/1a/23/c7/1a23c76e9439cf3ab46878a557705ebc.js'></script>-->
 <p>我是廣告(不要點我)</p>
 <script type="text/javascript">
 	atOptions = {
@@ -375,17 +469,6 @@ async function showing() {
 	};
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/06cb36d680391c873b7c96a3f5ba0f8a/invoke.js"></script>
-<br>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '06cb36d680391c873b7c96a3f5ba0f8a',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/06cb36d680391c873b7c96a3f5ba0f8a/invoke.js"></script>
-
+ 
 </body>
 </html>
