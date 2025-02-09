@@ -10,6 +10,11 @@
       background-color: #597492; /* 柔和灰色 */
       color: #ffffff; /* 文字顏色，避免對比過高 */
     }
+    h2 {
+      /*text-align: center; */
+      text-decoration: underline;
+      color: #333;
+    }
     .container {
       display: flex;
       flex-direction: column;
@@ -98,7 +103,7 @@
   <span id="userStatus" class="hidden"></span> 
   <h1>605_Auto_Scheduling</h1>
 </div>
-
+<!--<h2>本次</h2> -->
 <div class="container">
   <div class="top">
     <!-- 左半邊表格 -->
@@ -160,6 +165,7 @@
   <button id="morebtn" onclick="toggleContent()">顯示更多</button>
   <!-- 下方區塊 -->
   <div id="moreContent">
+    <h2>上次</h2>
     <div class="bottom">
       <div class="container">
         <div class="top">
