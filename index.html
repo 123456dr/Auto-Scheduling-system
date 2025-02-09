@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAS RC_Auto_Scheduling</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #597492; /* 柔和灰色 */
+      color: #ffffff; /* 文字顏色，避免對比過高 */
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+    .top {
+      display: flex;
+      flex: 1;
+    }
+    .top-left {
+      flex: 1;
+      padding: 10px;
+    }
+    .top-right {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+    .table-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;
+    }
+    .table-group .vertical-text {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      background-color: #333;
+      padding: 10px;
+      color: white;
+    }
+    .btn {
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    #moreContent {
+    display: none; /* 預設隱藏 */
+    max-height: none; /* 內容高度自適應 */
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <button id="loginBtn" class="btn" onclick="toggleLogin()">登入</button>
+  <span id="userStatus" class="hidden">已登入</span>
+  <h1>RC_Auto_Scheduling</h1>
+</div>
+
+<div class="container">
+  <div class="top">
+    <!-- 左半邊表格 -->
+    <div class="top-left">
+      <table id="left-table">
+        <tbody>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- 右半邊表格 -->
+    <div class="top-right">
+      <div class="table-group">
+        <div class="vertical-text">本次抬餐人員</div>
+        <table id="right-table1">
+          <tbody>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-group">
+        <div class="vertical-text">本次值日人員</div>
+        <table id="right-table2">
+          <tbody>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://docs.google.com/spreadsheets/d/1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A/edit?usp=sharing" target="_blank">點擊這裡查看 Google 試算表</a>
+
+
+  <!-- 按鈕區 -->
+  <!-- <button class="btn" onclick="fetchData()">顯示數據</button> -->
+  <button class="btn" id="showbtn" onclick="showingbtn()">顯示數據</button>
+  <button id="schedulebtn" class="btn hidden" onclick="scheduling()">重新安排人員</button>
+
+  <hr>
+  <button onclick="toggleContent()">顯示更多</button>
+  <!-- 下方區塊 -->
+  <div id="moreContent">
+    <div class="bottom">
+      <div class="container">
+        <div class="top">
+          <!-- 左半邊表格 -->
+          <div class="top-left">
+            <table id="left-table">
+              <tbody>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- 右半邊表格 -->
+          <div class="top-right">
+            <div class="table-group">
+              <div class="vertical-text">上次抬餐人員</div>
+              <table id="right-table1">
+                <tbody>
+                  <tr><td></td></tr>
+                  <tr><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-group">
+              <div class="vertical-text">上次值日人員</div>
+              <table id="right-table2">
+                <tbody>
+                  <tr><td></td></tr>
+                  <tr><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+
+function toggleContent() {
+    const moreContent = document.getElementById("moreContent");
+    const button = document.querySelector("button");
+
+    if (moreContent.style.display === "none" || moreContent.style.display === "") {
+        moreContent.style.display = "block"; // 顯示內容
+        document.body.style.overflow = "auto"; // 確保頁面可以滾動
+        button.textContent = "顯示更少";
+    } else {
+        moreContent.style.display = "none"; // 隱藏內容
+        button.textContent = "顯示更多";
+    }
+}
+
+
+
+
+
+function showingbtn() {
+  showing();
+  const button = document.getElementById("showbtn");
+  button.style.display = "none"; 
+}
+
+
+
+let isLoggedIn = false;
+
+function toggleLogin() {
+  if (!isLoggedIn) {
+    let username = prompt("請輸入帳號:");
+    let password = prompt("請輸入密碼:");
+    if (username === "605" && password === "RC_Auto_Scheduling") {
+      isLoggedIn = true;
+      document.getElementById("loginBtn").textContent = "登出";
+      document.getElementById("userStatus").classList.remove("hidden");
+      document.getElementById("schedulebtn").classList.remove("hidden");
+    } else {
+      alert("登入失敗");
+    }
+  } else {
+    isLoggedIn = false;
+    document.getElementById("loginBtn").textContent = "登入";
+    document.getElementById("userStatus").classList.add("hidden");
+    document.getElementById("schedulebtn").classList.add("hidden");
+  }
+}
+
+
+async function scheduling() {
+    if (!isLoggedIn) {
+        alert("請先登入!");
+        return;
+    }
+    else if (isLoggedIn) {
+      const button = document.getElementById("schedulebtn");
+      button.style.display = "none";
+    }
+
+    const apiUrl = "https://script.google.com/macros/s/AKfycbyn9uuLpYhJIkA1Y0A1NKHUQXuJcBR2kxHNz7vYdBAMalkXqVOZzTMSwi26Nz6XX8LH/exec?";
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        showing();
+
+    } catch (error) {
+        console.error("獲取數據時出錯：", error);
+    }
+}
+
+/* 以下無暫存成功版
+async function showing() {
+    const sheetId = "1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A"; // 你的試算表 ID
+    const apiKey = "AIzaSyCaPHKS9sBRNf0805GkgeMRgysyQPPuK0k"; // 你的 API 金鑰
+    const range = "A1:E14"; // 你需要的範圍
+
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.values) {
+            console.error("無法取得數據");
+            return;
+        }
+
+        const values = data.values;
+
+        // 取得 HTML 表格元素
+        const leftTable = document.querySelector(".top-left table tbody");
+        const rightTable1 = document.querySelector(".top-right #right-table1 tbody");
+        const rightTable2 = document.querySelector(".top-right #right-table2 tbody");
+        const bottomLeftTable = document.querySelector(".bottom #left-table tbody");
+        const bottomRightTable1 = document.querySelector(".bottom #right-table1 tbody");
+        const bottomRightTable2 = document.querySelector(".bottom #right-table2 tbody");
+
+        // 填入 左上表格 (A1~A5, B1~B5)
+        for (let i = 0; i < 5; i++) {
+            leftTable.rows[i].cells[0].textContent = values[i]?.[0] || "";
+            leftTable.rows[i].cells[1].textContent = values[i]?.[1] || "";
+        }
+
+        // 填入 右上表格 (D1~D2, E1~E2)
+        for (let i = 0; i < 2; i++) {
+            rightTable1.rows[i].cells[0].textContent = values[i]?.[3] || "";
+            rightTable2.rows[i].cells[0].textContent = values[i]?.[4] || "";
+        }
+
+        // 填入 左下表格 (A10~A14, B10~B14)
+        for (let i = 9; i < 14; i++) {
+            bottomLeftTable.rows[i - 9].cells[0].textContent = values[i]?.[0] || "";
+            bottomLeftTable.rows[i - 9].cells[1].textContent = values[i]?.[1] || "";
+        }
+
+        // 填入 右下表格 (D10~D11, E10~E11)
+        for (let i = 9; i < 11; i++) {
+            bottomRightTable1.rows[i - 9].cells[0].textContent = values[i]?.[3] || "";
+            bottomRightTable2.rows[i - 9].cells[0].textContent = values[i]?.[4] || "";
+        }
+
+    } catch (error) {
+        console.error("獲取試算表數據時發生錯誤：", error);
+    }
+}*/
+async function showing() {
+    const sheetId = "1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A"; // 你的試算表 ID
+    const apiKey = "AIzaSyCaPHKS9sBRNf0805GkgeMRgysyQPPuK0k"; // 你的 API 金鑰
+    const range = "A1:E14"; // 你需要的範圍
+
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+
+    // 先檢查是否已經有儲存的資料
+    const savedData = localStorage.getItem("tableData");
+    if (savedData) {
+        // 如果有儲存的資料，直接填入表格
+        const values = JSON.parse(savedData);
+        fillTables(values);
+        return;
+    }
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.values) {
+            console.error("無法取得數據");
+            return;
+        }
+
+        const values = data.values;
+
+        // 儲存到 localStorage
+        localStorage.setItem("tableData", JSON.stringify(values));
+
+        // 填入表格
+        fillTables(values);
+
+    } catch (error) {
+        console.error("獲取試算表數據時發生錯誤：", error);
+    }
+}
+
+// 將資料填入表格的函式
+function fillTables(values) {
+    // 取得 HTML 表格元素
+    const leftTable = document.querySelector(".top-left table tbody");
+    const rightTable1 = document.querySelector(".top-right #right-table1 tbody");
+    const rightTable2 = document.querySelector(".top-right #right-table2 tbody");
+    const bottomLeftTable = document.querySelector(".bottom #left-table tbody");
+    const bottomRightTable1 = document.querySelector(".bottom #right-table1 tbody");
+    const bottomRightTable2 = document.querySelector(".bottom #right-table2 tbody");
+
+    // 填入 左上表格 (A1~A5, B1~B5)
+    for (let i = 0; i < 5; i++) {
+        leftTable.rows[i].cells[0].textContent = values[i]?.[0] || "";
+        leftTable.rows[i].cells[1].textContent = values[i]?.[1] || "";
+    }
+
+    // 填入 右上表格 (D1~D2, E1~E2)
+    for (let i = 0; i < 2; i++) {
+        rightTable1.rows[i].cells[0].textContent = values[i]?.[3] || "";
+        rightTable2.rows[i].cells[0].textContent = values[i]?.[4] || "";
+    }
+
+    // 填入 左下表格 (A10~A14, B10~B14)
+    for (let i = 9; i < 14; i++) {
+        bottomLeftTable.rows[i - 9].cells[0].textContent = values[i]?.[0] || "";
+        bottomLeftTable.rows[i - 9].cells[1].textContent = values[i]?.[1] || "";
+    }
+
+    // 填入 右下表格 (D10~D11, E10~E11)
+    for (let i = 9; i < 11; i++) {
+        bottomRightTable1.rows[i - 9].cells[0].textContent = values[i]?.[3] || "";
+        bottomRightTable2.rows[i - 9].cells[0].textContent = values[i]?.[4] || "";
+    }
+}
+
+
+
+</script>
+
+</body>
+</html>
