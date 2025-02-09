@@ -134,7 +134,7 @@
   <button id="schedulebtn" class="btn hidden" onclick="scheduling()">重新安排人員</button>
 
   <hr>
-  <button onclick="toggleContent()">顯示更多</button>
+  <button id="morebtn" onclick="toggleContent()">顯示更多</button>
   <!-- 下方區塊 -->
   <div id="moreContent">
     <div class="bottom">
@@ -185,7 +185,7 @@
 
 function toggleContent() {
     const moreContent = document.getElementById("moreContent");
-    const button = document.querySelector("button");
+    const button = document.getElementById("morebtn");
 
     if (moreContent.style.display === "none" || moreContent.style.display === "") {
         moreContent.style.display = "block"; // 顯示內容
