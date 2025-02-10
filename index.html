@@ -108,8 +108,9 @@
   <h1>605_Auto_Scheduling</h1>
 </div>
 <!--<h2>本次</h2> -->
-<div class="container" >
-  <div style="overflow-y: auto;">
+<div style="overflow-y: auto;">
+<div class="container" style="overflow-y: auto;">
+  <div >
   <div class="top">
     <!-- 左半邊表格 -->
     <div  id="name" style="display:none;">
@@ -169,6 +170,88 @@
     &nbsp;&nbsp;<button id="submitButton" style="height: 46px; width: 50px;">送出</button>
   </div>
   </div>
+  
+
+  <a href="https://docs.google.com/spreadsheets/d/1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A/edit?usp=sharing" target="_blank">點擊這裡查看 Google 試算表</a>
+
+
+  <!-- 按鈕區 -->
+  <!-- <button class="btn" onclick="fetchData()">顯示數據</button> -->
+  <button class="btn" id="showbtn" onclick="showingbtn()">顯示數據</button>
+  <button id="schedulebtn" class="btn hidden" onclick="scheduling()">重新安排人員</button>
+
+  <hr>
+  <button id="morebtn" onclick="toggleContent()">顯示更多</button>
+  <!-- 下方區塊 -->
+  <div id="moreContent">
+    <h2>上次</h2>
+    <div class="bottom">
+      <div class="container">
+        <div class="top">
+          <!-- 左半邊表格 -->
+          <div  id="name1" style="display:none;">
+            <table id="name-table" >
+              <tbody>
+                <tr><td>飯</td></tr>
+                <tr><td>大菜</td></tr>
+                <tr><td>小菜</td></tr>
+                <tr><td>湯</td></tr>
+                <tr><td>洗碗</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="top-left">
+            <table id="left-table">
+              <tbody>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- 右半邊表格 -->
+          <div class="top-right">
+            <div class="table-group">
+              <div class="vertical-text">擦餐車&飲水機</div>
+              <table id="right-table1">
+                <tbody>
+                  <tr><td></td></tr>
+                  <tr><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-group">
+              <div class="vertical-text">上次擦黑板人員</div>
+              <table id="right-table2">
+                <tbody>
+                  <tr><td></td></tr>
+                  <tr><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <br><br>
+     <p>我是廣告(不要點我)</p>
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '06cb36d680391c873b7c96a3f5ba0f8a',
+        'format' : 'iframe',
+        'height' : 250,
+        'width' : 300,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/06cb36d680391c873b7c96a3f5ba0f8a/invoke.js"></script>
+ 
+  </div>
+</div>
+</div>
   <script>
     document.getElementById("leaveType").addEventListener("change", function() {
         let replaceInput = document.getElementById("replaceNumber");
@@ -283,86 +366,6 @@
 
 
 
-
-  <a href="https://docs.google.com/spreadsheets/d/1HWk8s__aXVkSLs4iShYuAdaiI231ze0-GDN52dcNN_A/edit?usp=sharing" target="_blank">點擊這裡查看 Google 試算表</a>
-
-
-  <!-- 按鈕區 -->
-  <!-- <button class="btn" onclick="fetchData()">顯示數據</button> -->
-  <button class="btn" id="showbtn" onclick="showingbtn()">顯示數據</button>
-  <button id="schedulebtn" class="btn hidden" onclick="scheduling()">重新安排人員</button>
-
-  <hr>
-  <button id="morebtn" onclick="toggleContent()">顯示更多</button>
-  <!-- 下方區塊 -->
-  <div id="moreContent">
-    <h2>上次</h2>
-    <div class="bottom">
-      <div class="container">
-        <div class="top">
-          <!-- 左半邊表格 -->
-          <div  id="name1" style="display:none;">
-            <table id="name-table" >
-              <tbody>
-                <tr><td>飯</td></tr>
-                <tr><td>大菜</td></tr>
-                <tr><td>小菜</td></tr>
-                <tr><td>湯</td></tr>
-                <tr><td>洗碗</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="top-left">
-            <table id="left-table">
-              <tbody>
-                <tr><td></td><td></td></tr>
-                <tr><td></td><td></td></tr>
-                <tr><td></td><td></td></tr>
-                <tr><td></td><td></td></tr>
-                <tr><td></td><td></td></tr>
-              </tbody>
-            </table>
-          </div>
-          
-          <!-- 右半邊表格 -->
-          <div class="top-right">
-            <div class="table-group">
-              <div class="vertical-text">擦餐車&飲水機</div>
-              <table id="right-table1">
-                <tbody>
-                  <tr><td></td></tr>
-                  <tr><td></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="table-group">
-              <div class="vertical-text">上次擦黑板人員</div>
-              <table id="right-table2">
-                <tbody>
-                  <tr><td></td></tr>
-                  <tr><td></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <br><br>
-    <!--<p>我是廣告(不要點我)</p>
-    <script type="text/javascript">
-      atOptions = {
-        'key' : '06cb36d680391c873b7c96a3f5ba0f8a',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/06cb36d680391c873b7c96a3f5ba0f8a/invoke.js"></script>
-  -->
-  </div>
-</div>
 
 
 
@@ -513,7 +516,7 @@ async function showing() {
 
 </script>
 <!--<script type='text/javascript' src='//pl25782514.effectiveratecpm.com/1a/23/c7/1a23c76e9439cf3ab46878a557705ebc.js'></script>
-<p>我是廣告(不要點我)</p>
+--><p>我是廣告(不要點我)</p>
 <script type="text/javascript">
 	atOptions = {
 		'key' : '06cb36d680391c873b7c96a3f5ba0f8a',
@@ -524,6 +527,5 @@ async function showing() {
 	};
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/06cb36d680391c873b7c96a3f5ba0f8a/invoke.js"></script>
- -->
 </body>
 </html>
